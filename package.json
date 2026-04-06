@@ -1,0 +1,27 @@
+{
+  "name": "discordantispam",
+  "version": "1.0.0",
+  "description": "Anti spam bot powered by AI",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/safwanoo/DiscordAntiSpam.git"
+  },
+  "keywords": [
+    "anti",
+    "spam",
+    "discord"
+  ],
+  "author": "safwan omar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/safwanoo/DiscordAntiSpam/issues"
+  },
+  "homepage": "https://github.com/safwanoo/DiscordAntiSpam#readme",
+  "dependencies": {
+    "discord.js": "^14.26.2"
+  }
+}
