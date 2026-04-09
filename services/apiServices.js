@@ -13,8 +13,11 @@ async function analyzeMessage(content, userId, messageId) {
 
     return res.data;
   } catch (err) {
-    console.error('Backend error:', err.message);
-
+    if (err.response) {
+      console.error('Backend error response:', err.response.data);
+    } else {
+      console.error('Error:', err.message);
+    }
     // fallback (important so bot doesn't crash)
     return { flagged: false };
   }

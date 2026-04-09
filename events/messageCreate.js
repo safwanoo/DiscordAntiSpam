@@ -18,14 +18,35 @@ module.exports = {
             message.id
         );
 
-        if (result.flagged){
-            console.log(`Message flagged: ${result.reason}`);
-            await message.react("🚨");
-            await message.channel.send(`⚠️ ${result.reason}`);
-        }else{
-        await message.react('👀');
-        console.log(`message approved`);
-        }    
+        console.log (`Analysis result: 
+
+            flagged : ${JSON.stringify(result.flagged)}
+            action : ${result.action}
+            score : ${result.score}
+            reasons : ${JSON.stringify(result.reasons)}
+
+            `);
+        // 🚫 Block
+            if (result.action === 'block') {
+            await message.delete();
+            await message.channel.send(`⚠️ Message from <@${message.author.id}> was removed due to: ${result.reasons.join(', ')} contact admin if you think this was a mistake.`);
+
+            return;
+            }
+
+            // ⚠️ Suspicious
+            if (result.action === 'review') {
+            await message.react('⚠️');
+            return;
+            }
+            //if the ruling is vague, need ai to weigh in on the analysis and make a final decision
+            // if (result.action === 'review') {
+            //     const aiResult = await analyzeWithAI(content);
+            // }
+
+            // ✅ Safe
+            await message.react('✅');
+
     }
 
 }
