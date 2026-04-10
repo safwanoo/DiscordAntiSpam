@@ -1,7 +1,8 @@
 const { Events }   = require('discord.js');
 const { analyzeMessage } = require('../services/apiServices');
+require('dotenv').config();
+const channelID = process.env.CHANNEL_ID;
 
-const { channelID } = require('../config.json');
 module.exports = {
 
     name: Events.MessageCreate,
