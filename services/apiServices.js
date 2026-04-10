@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_URL = 'backend-service-production-d44a.up.railway.app:3000';
+const API_URL = 'https://backend-service-production-d44a.up.railway.app:3000';
 
 async function analyzeMessage(content, userId, messageId, channelId) {
   try {
