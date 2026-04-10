@@ -6,7 +6,7 @@ const { analyzeMessage } = require('../controllers/moderationController');
 
 router.post('/analyze', analyzeMessage);
 
-router.post('/health', (req, res) => {
+router.get('/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
     message: 'Backend is running',
