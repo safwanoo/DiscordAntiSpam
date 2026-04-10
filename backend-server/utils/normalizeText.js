@@ -33,10 +33,8 @@ function normalizeText(text) {
 
     normalized = normalized.replace(/(.)\1{2,}/g, '$1');
 
-    normalized = normalized.replace(/\s+/g, ' ').trim();
+    normalized = normalized.replace(/\s+/g, ' $1').trim();
 
-
-    console.log (`Normalized text: ${normalized}`);
     return normalized;
 }
 

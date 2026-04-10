@@ -1,7 +1,7 @@
 const { Events }   = require('discord.js');
 const { analyzeMessage } = require('../services/apiServices');
-const { channelID } = require('../config.json');
 
+const { channelID } = require('../config.json');
 module.exports = {
 
     name: Events.MessageCreate,
@@ -12,21 +12,27 @@ module.exports = {
 
         console.log(`Message detected : ${message.content}`);
 
+        //basic spam filtering and scoring ( single message scope )
         const result = await analyzeMessage(
             message.content,
             message.author.id,
-            message.id
+            message.id,
+            message.channel.id
         );
 
-        console.log (`Analysis result: 
 
+            console.log (`Analysis result: 
             flagged : ${JSON.stringify(result.flagged)}
             action : ${result.action}
             score : ${result.score}
             reasons : ${JSON.stringify(result.reasons)}
-
             `);
-        // 🚫 Block
+
+            // ==================================
+            // message handling based on analysis
+            // ==================================
+            
+            // 🚫 Block
             if (result.action === 'block') {
             await message.delete();
             await message.channel.send(`⚠️ Message from <@${message.author.id}> was removed due to: ${result.reasons.join(', ')} contact admin if you think this was a mistake.`);

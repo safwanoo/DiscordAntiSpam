@@ -28,8 +28,9 @@ const REGEX = {
 function scoreMessage(content) {
   const rawText = content;
   const text = normalizeText(content);
+  console.log(`Normalized text: "${text}"`);
   const words = getFilterWords();
-
+  console.log(`Loaded ${words.length} filter words`);
   let score = 0;
   let reasons = [];
 
@@ -39,13 +40,13 @@ function scoreMessage(content) {
   const matchedWord = words.find(word => text.includes(word));
 
   if (matchedWord) {
-    score += 2;
+    score += 5;
     reasons.push(`Keyword detected: "${matchedWord}"`);
   } else if (isSuspicious(text)) {
     const fuzzy = fuzzyMatch(text, words);
 
     if (fuzzy) {
-      score += 2;
+      score += 10;
       reasons.push(
         `Fuzzy match: "${fuzzy.match}" (${Math.round(fuzzy.similarity * 100)}%)`
       );
