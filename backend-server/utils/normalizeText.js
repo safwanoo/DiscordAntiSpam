@@ -31,12 +31,10 @@ function normalizeText(text) {
 
     normalized = normalized.replace(/[^a-z0-9\s]/g, '');
 
-    normalized = normalized.replace(/(.)\1{2,}/g, '$1');
+    normalized = normalized.replace(/(.)\1{2,}/g, '$1$1');
 
     normalized = normalized.replace(/\s+/g, ' ').trim();
 
-
-    console.log (`Normalized text: ${normalized}`);
     return normalized;
 }
 
