@@ -40,13 +40,13 @@ function scoreMessage(content) {
   const matchedWord = words.find(word => text.includes(word));
 
   if (matchedWord) {
-    score += 5;
+    score += 4;
     reasons.push(`Keyword detected: "${matchedWord}"`);
   } else if (isSuspicious(text)) {
     const fuzzy = fuzzyMatch(text, words);
 
     if (fuzzy) {
-      score += 10;
+      score += 6;
       reasons.push(
         `Fuzzy match: "${fuzzy.match}" (${Math.round(fuzzy.similarity * 100)}%)`
       );
@@ -88,6 +88,37 @@ function scoreMessage(content) {
   if (capsCount > 10) {
     score += 1;
     reasons.push('Too many capital letters');
+  }
+
+  // =========================
+  // 4. Social Engineering Signals (NEW)
+  // =========================
+
+  const SOCIAL = {
+    trust: /(trust me|legit|no scam|vouch|trusted seller)/i,
+    payment: /(pay first|send payment|bank transfer|transfer first)/i,
+    offPlatform: /(telegram|whatsapp|dm me|pm me)/i,
+    selling: /(selling|cheap|offer|deal)/i
+  };
+
+  if (SOCIAL.trust.test(text)) {
+    score += 2;
+    reasons.push('Trust manipulation');
+  }
+
+  if (SOCIAL.payment.test(text)) {
+    score += 3;
+    reasons.push('Payment intent');
+  }
+
+  if (SOCIAL.offPlatform.test(text)) {
+    score += 2;
+    reasons.push('Off-platform / DM attempt');
+  }
+
+  if (SOCIAL.selling.test(text)) {
+    score += 1;
+    reasons.push('Selling pattern');
   }
 
   return { score, reasons };

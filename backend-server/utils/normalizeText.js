@@ -31,9 +31,9 @@ function normalizeText(text) {
 
     normalized = normalized.replace(/[^a-z0-9\s]/g, '');
 
-    normalized = normalized.replace(/(.)\1{2,}/g, '$1');
+    normalized = normalized.replace(/(.)\1{2,}/g, '$1$1');
 
-    normalized = normalized.replace(/\s+/g, ' $1').trim();
+    normalized = normalized.replace(/\s+/g, ' ').trim();
 
     return normalized;
 }

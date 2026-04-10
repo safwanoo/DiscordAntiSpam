@@ -15,15 +15,7 @@ async function analyzeMessage(req, res) {
   let flagged = false;
   let action = 'allow'
  
-  //decide if the score is higher than or equal to 5 block action
-  if (score >= 5) {
-    flagged = true;
-    action = 'block';
-  }else if( score >=3) {
-    action = 'review';//send to AI later
-    console.log('Sending to AI for review');
-  } 
-
+    
   // update conversation 
   const conversation = updateConversation(
     channelId,
@@ -31,6 +23,30 @@ async function analyzeMessage(req, res) {
     content,
     score
   );
+
+
+  //decide if the score is higher than or equal to 5 block action
+  if (score >= 5) {
+    flagged = true;
+    action = 'block';
+  }else if( score >=3) {
+    action = 'review';//send to AI later
+    console.log('🚨 Triggering AI for this message');
+
+    let aiResult = null;
+
+    aiResult = await analyzeConversation(conversation.messages);
+    markAICall(channelId, userId);
+
+    if (aiResult?.flagged) {
+      flagged = true;
+      action = 'block';
+      reasons.push(`AI: ${aiResult.reason}
+        AI confidence: ${aiResult.confidence}`);
+    }
+  } 
+
+
 
   let aiResult = null;
 
