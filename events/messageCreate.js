@@ -1,15 +1,12 @@
 const { Events }   = require('discord.js');
 const { analyzeMessage } = require('../services/apiServices');
 require('dotenv').config();
-const channelID = process.env.CHANNEL_ID;
 
 module.exports = {
 
     name: Events.MessageCreate,
     async execute(message) {
         if (message.author.bot) return;
-
-        if (message.channel.id !== channelID) return;
 
         console.log(`Message detected : ${message.content}`);
 
