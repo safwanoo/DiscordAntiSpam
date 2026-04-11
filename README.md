@@ -1,5 +1,4 @@
 **🚀 Discord AI Anti-Scam Bot**
-🧠 One-Line Summary
 
 An intelligent Discord moderation system that detects scams and spam using rule-based scoring, conversation analysis, and AI verification.
 
