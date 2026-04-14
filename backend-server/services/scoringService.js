@@ -19,9 +19,9 @@ function getFilterWords() {
 // ✅ Precompiled regex (performance boost)
 const REGEX = {
   link: /(http|https|www\.)/i,
-  urgency: /(now|urgent|limited|hurry|fast|quick)/i,
+  urgency: /(now|urgent|limited|hurry|fast|quick|quickly|immediately)/i,
   cta: /(click|join|claim|register|sign up|get now)/i,
-  scamCombo: /(free money|win now).*(http|www)/i,
+  scamCombo: /(free money|win now|dm me|send me).*(http|www|otp|password)/i,
   repeat: /(.)\1{4,}/
 };
 
